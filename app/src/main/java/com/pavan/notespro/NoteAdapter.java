@@ -23,17 +23,18 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Notemodel,NoteAdapter.
 
     public NoteAdapter(@NonNull FirestoreRecyclerOptions<Notemodel> options,Context context) {
         super(options);
+        this.context = context;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull Noteviewholder holder, int position, @NonNull Notemodel model) {
-        holder.Title.setText(model.getTitle());
-        holder.content.setText(model.getContent());
-        holder.content.setText(Firebaseutils.Timestamptostring(model.getTimestamp()));
+        holder.Title.setText(model.title);
+        holder.content.setText(model.content);
+        holder.timestamp.setText(Firebaseutils.Timestamptostring(model.getTimestamp()));
 
-        holder.itemView.setOnClickListener((v)->{
+        holder.itemView.setOnClickListener( v ->{
             Intent intent = new Intent(context,NotesActivity.class);
-            intent.putExtra("title",model.getTitle());
+            intent.putExtra("title",model.title);
             intent.putExtra("content",model.getContent());
             String docId = this.getSnapshots().getSnapshot(position).getId();
             intent.putExtra("docId",docId);
@@ -46,17 +47,17 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Notemodel,NoteAdapter.
     @NonNull
     @Override
     public Noteviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Noteviewholder(LayoutInflater.from(context).inflate(R.layout.noteitem,parent,false));
+        return new Noteviewholder(LayoutInflater.from(parent.getContext()).inflate(R.layout.noteitem,parent,false));
     }
 
     public class Noteviewholder extends RecyclerView.ViewHolder{
 
         TextView Title,content,timestamp;
-        public Noteviewholder(@NonNull View v) {
-            super(v);
-            Title =  v.findViewById(R.id.note_title);
-            content = v.findViewById(R.id.notes_description);
-            timestamp = v.findViewById(R.id.time_stamp);
+        public Noteviewholder(@NonNull View itemView) {
+            super(itemView);
+            Title =  (TextView) itemView.findViewById(R.id.note_title);
+            content = (TextView) itemView.findViewById(R.id.note_content);
+            timestamp = itemView.findViewById(R.id.time_stamp);
         }
 
     };

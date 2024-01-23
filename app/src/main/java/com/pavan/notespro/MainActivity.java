@@ -6,10 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.Query;
 import com.pavan.notespro.models.Notemodel;
 
@@ -36,7 +40,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
     void showMenu(){
-
+        PopupMenu popupMenu = new PopupMenu(MainActivity.this,menubtn);
+        popupMenu.getMenu().add("Logout");
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(menuItem.getTitle() == "Logout"){
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(MainActivity.this,loginActivity.class));
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     void setUprecyclerview(){
         Query query = Firebaseutils.getCollectionreference().orderBy("timestamp", Query.Direction.DESCENDING);

@@ -49,7 +49,7 @@ public class NotesActivity extends AppCompatActivity {
         content = getIntent().getStringExtra("content");
         docid = getIntent().getStringExtra("docId");
 
-        if(!docid.isEmpty() && docid != null){
+        if(docid != null && !docid.isEmpty() ) {
             isEditMode = true;
         }
         Titletext.setText(title);

@@ -27,6 +27,7 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:layout_margin="5dp"
+        android:padding="3dp"
         />
 
     <TextView
@@ -34,9 +35,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="time"
-        android:textColor="@color/primary"
+        android:textColor="@color/white"
         android:layout_margin="4dp"
         android:gravity="right"
+        android:padding="2dp"
         />
 
 

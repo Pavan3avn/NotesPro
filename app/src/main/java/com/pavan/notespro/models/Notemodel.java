@@ -4,9 +4,9 @@ import com.google.firebase.Timestamp;
 
 public class Notemodel {
 
-    String title;
-    String content;
-    Timestamp timestamp;
+    public String title;
+    public String content;
+    public Timestamp timestamp;
 
     public Notemodel(){
 
